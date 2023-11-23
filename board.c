@@ -73,7 +73,7 @@ int board_getBoardCoin(int pos)
 	return coin;
 }
 
-//int board_getSharkPosition(void);
+int board_getSharkPosition(void);
 
 int board_stepShark(void)
 {
