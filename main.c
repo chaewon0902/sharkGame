@@ -78,44 +78,10 @@ void checkDie(void)
 		player_status[i] = PLAYERSTATUS_DIE;
 }
 
-int getAlivePlayer(void)
-	{
-		int i;
-		int cnt=0;
-		
-		for(i=0; i<N_PLAYER; i++)
-		{
-			if (player_status[i] == PLAYERSTATUS_LIVE || player_status[i] == PLAYERSTATUS_END){
-				cnt++;
-		}
-	}
-		return cnt;
-	}
-	
-	int getWinner(void)
-	{
-		int i;
-		int winner=0;
-		int max_coin=-1;
-		
-		for(i=0; i<N_PLAYER; i++)
-		{
-			if (player_status[i] != PLAYERSTATUS_DIE && player_coin[i] > max_coin) 
-			{
-				max_coin = player_coin[i];
-				winner = i;
-			}
-		}
-		return winner;
-	}
+
 	
 	
 
-int game_end(void) {
-	int alive_players = getAlivePlayer();
-	
-    return (alive_players <= 1 || alive_players == 0); 
-}
 
 //메인 함수 위로 빼주기 
 
@@ -206,14 +172,61 @@ int main(int argc, char *argv[])
 		
 	} while(!game_end());
 	
-	
 	printf("GAME END!!\n");
-	printf("%i players are alive!",getAlivePlayer());
-	printf("winner is %s\n", player_name[getWinner()]);
 	
 	
+	//3. 정리 
+	 
+
+	int getAlivePlayer(void)
+	{
+		int i;
+		int cnt=0;
+		
+		for(i=0; i<N_PLAYER; i++)
+		{
+			if (player_status[i] == PLAYERSTATUS_LIVE || player_status[i] == PLAYERSTATUS_END){
+				cnt++;
+		}
+	}
+		return cnt;
+	}
+	
+	int getWinner(void)
+	{
+		int i;
+		int winner=0;
+		int max_coin=-1;
+		
+		for(i=0; i<N_PLAYER; i++)
+		{
+			if (player_status[i] != PLAYERSTATUS_DIE && player_coin[i] > max_coin) 
+			{
+				max_coin = player_coin[i];
+				winner = i;
+			}
+		}
+		return winner;
+	}
+	
+	printf("%i player are alive! winner is %s\n", player_status[0], player_name);
 	return 0;
 }
+
+	int game_end(void) {
+	int i;
+		int flag_end = 1;
+		
+		for(i=0; i<N_PLAYER; i++)
+		{
+			if(player_status[i] == PLAYERSTATUS_LIVE)
+			{
+				flag_end = 0;
+				break;
+			}
+		}
+		return flag_end;
+	}
 				
 	
 	
