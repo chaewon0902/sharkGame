@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 		
 		
 		pos += step;
-		printf("1");
+		printf("\n");
 		coinResult = board_getBoardCoin(pos);
 		
 		printf("press any key to continue :");
