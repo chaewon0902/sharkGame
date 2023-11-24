@@ -147,6 +147,9 @@ int main(int argc, char *argv[])
 		printf("Die result : %i, %s moved to %i\n", step, player_name[turn], player_position[turn]);
 		
 		
+		if (player_position[turn] == N_BOARD-1)
+			printf("%s reached to the end!! (coin : %i)\n", player_name[turn], player_coin[turn]);
+		
 		//2-4. 동전 줍기
 		coinResult = board_getBoardCoin(player_position[turn]);
 		player_coin[turn] += coinResult;
@@ -172,7 +175,7 @@ int main(int argc, char *argv[])
 		
 	} while(!game_end());
 	
-	printf("GAME END!!\n");
+	
 	
 	
 	//3. 정리 
@@ -185,10 +188,9 @@ int main(int argc, char *argv[])
 		
 		for(i=0; i<N_PLAYER; i++)
 		{
-			if (player_status[i] == PLAYERSTATUS_LIVE || player_status[i] == PLAYERSTATUS_END){
+			if (player_status[i] == PLAYERSTATUS_END)
 				cnt++;
 		}
-	}
 		return cnt;
 	}
 	
@@ -200,7 +202,7 @@ int main(int argc, char *argv[])
 		
 		for(i=0; i<N_PLAYER; i++)
 		{
-			if (player_status[i] != PLAYERSTATUS_DIE && player_coin[i] > max_coin) 
+			if (player_status[i] > max_coin) 
 			{
 				max_coin = player_coin[i];
 				winner = i;
@@ -209,7 +211,8 @@ int main(int argc, char *argv[])
 		return winner;
 	}
 	
-	printf("%i player are alive! winner is %s\n", player_status[0], player_name);
+	printf("GAME END!!\n");
+	printf("%i player are alive! winner is %s\n", getAlivePlayer(), player_name[getWinner()]);
 	return 0;
 }
 
